@@ -6,7 +6,6 @@ import {
 import { apiHandler } from '../../../utils.server'
 import Cors from 'cors'
 import { ProjectService } from '../../../service/project.service'
-import { statService } from '../../../service/stat.service'
 
 export default apiHandler()
   .use(
@@ -41,25 +40,7 @@ export default apiHandler()
         } as CommentWrapper,
       })
       return
-    }
-
-    statService.capture('get_comments', {
-      identity: query.appId,
-      properties: {
-        from: 'open_api',
-      },
     })
-
-    const queryCommentStat = statService.start(
-      'query_comments',
-      'Query Comments',
-      {
-        tags: {
-          project_id: query.appId,
-          from: 'open_api',
-        },
-      },
-    )
 
     const comments = await commentService.getComments(
       query.appId,
@@ -74,8 +55,6 @@ export default apiHandler()
         },
       },
     )
-
-    queryCommentStat.end()
 
     res.json({
       data: comments,
@@ -132,8 +111,6 @@ export default apiHandler()
         // TODO: log error
       }
     }
-
-    statService.capture('add_comment')
 
     res.json({
       data: comment,

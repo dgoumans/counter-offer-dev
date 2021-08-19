@@ -128,7 +128,7 @@ function CommentComponent(props: {
       <HStack spacing={2}>
         {props.isRoot && <Tooltip label={comment.page.slug}>
           <Link color="gray.500" href={comment.page.url}>{comment.page.title}</Link>
-        </Tooltip> }
+        </Tooltip>}
         <Spacer />
 
         {comment.moderatorId && <Tag colorScheme="cyan" size="sm">MOD</Tag>}
@@ -164,7 +164,7 @@ function CommentComponent(props: {
         {showReplyForm && <ReplyForm parentId={comment.id} />}
       </Box>
 
-      { comment.replies.data.length > 0 && comment.replies.data.map(reply => <CommentComponent key={reply.id} {...props} comment={reply} isRoot={false} />)}
+      {comment.replies.data.length > 0 && comment.replies.data.map(reply => <CommentComponent key={reply.id} {...props} comment={reply} isRoot={false} />)}
     </Box>
   )
 }
@@ -212,10 +212,12 @@ function ProjectPage(props: {
             <Tabs size="md" >
               <TabList>
                 <Tab>Offers</Tab>
+                <Tab>Offer Configuration</Tab>
                 <Tab>Settings</Tab>
               </TabList>
 
               <TabPanels>
+
                 <TabPanel px={0} py={8}>
                   {getCommentsQuery.isLoading && <Center p={8}><Spinner /></Center>}
                   <VStack alignItems="stretch" spacing={4}>
@@ -232,9 +234,25 @@ function ProjectPage(props: {
                     </HStack>
                   </VStack>
                 </TabPanel>
+
+                <TabPanel px={0} py={8}>
+                  <VStack alignItems="start">
+                    <HStack>
+                      <Heading size="md">Offer price:</Heading>
+                    </HStack>
+                    <InputGroup>
+                      <Input defaultValue={props.project.id} type="text"></Input>
+                      <InputRightElement width='16'>
+                        <Button size="sm" isLoading={} onClick={}>Save</Button>
+                      </InputRightElement>
+                    </InputGroup>
+                  </VStack>
+                </TabPanel>
+
                 <TabPanel px={0} py={8}>
                   <Settings project={props.project} />
                 </TabPanel>
+            
               </TabPanels>
             </Tabs>
 
@@ -357,7 +375,7 @@ function Settings(props: {
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete Project
-            </AlertDialogHeader>
+          </AlertDialogHeader>
 
           <AlertDialogBody>
             <Text>
@@ -373,7 +391,7 @@ function Settings(props: {
           <AlertDialogFooter>
             <Button ref={cancelDeleteProjectRef} onClick={onCloseDeleteProjectModal}>
               Cancel
-              </Button>
+            </Button>
             <Button ml={4} colorScheme="red" onClick={_ => deleteProjectMutation.mutate({ projectId: props.project.id })} isLoading={deleteProjectMutation.isLoading}>Delete</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -403,7 +421,6 @@ function Settings(props: {
             </code>
           </Box>
           }
-          <Link fontSize="sm" color="gray.500" textDecor="underline" isExternal href="/doc#/advanced/sdk">SDK reference</Link>
         </VStack>
 
         <VStack alignItems="start">

@@ -243,7 +243,7 @@ function ProjectPage(props: {
                     <InputGroup>
                       <Input defaultValue={props.project.id} type="text"></Input>
                       <InputRightElement width='16'>
-                        <Button size="sm" isLoading={} onClick={}>Save</Button>
+                        <Button size="sm">Save</Button>
                       </InputRightElement>
                     </InputGroup>
                   </VStack>

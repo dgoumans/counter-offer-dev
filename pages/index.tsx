@@ -24,11 +24,10 @@ import { signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { Footer } from '../components/Footer'
 import { Head } from '../components/Head'
-import { getSession, resolvedConfig, sentry } from '../utils.server'
+import { getSession, resolvedConfig } from '../utils.server'
 import { GetServerSideProps, Redirect } from 'next'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { GoMarkGithub } from "react-icons/go";
-import axios from 'axios'
 import { UserSession } from '../service'
 import NextHead from 'next/head'
 
@@ -73,7 +72,7 @@ function IndexPage({ session, contributers }: Props) {
 
   return (
     <Box className="font">
-      <Head title="Cusdis - Lightweight, privacy-first, open-source comment system" />
+      <Head title="Counter-Offer - Lightweight, privacy-first, open-source offer system" />
       <NextHead>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -83,7 +82,7 @@ function IndexPage({ session, contributers }: Props) {
           <HStack>
             <Image w={12} src="/images/artworks/logo-256.png" />
             <Text className="font" fontWeight="bold" fontSize="2xl">
-              Cusdis
+              Counter-Offer
             </Text>
             <Spacer />
             <Box display={['none', 'initial']}>
@@ -91,18 +90,6 @@ function IndexPage({ session, contributers }: Props) {
 
               </HStack>
             </Box>
-
-
-            {/* 
-            <Link
-              isExternal
-              href="https://github.com/djyde/cusdis"
-              fontWeight="bold"
-              color="gray.700"
-            >
-              GitHub
-          </Link> */}
-
           </HStack>
         </Container>
       </Box>
@@ -114,7 +101,7 @@ function IndexPage({ session, contributers }: Props) {
               <Heading as="h1" size="4xl" fontSize={['5xl', '7xl']}><Text color="#014f86" as="span">Lightweight</Text>, <Text color="#2c7da0" as="span">privacy-first</Text>,  <Text color="#1b263b" as="span">open-source</Text> comment system</Heading>
             </Box>
             <Text fontSize="lg" mt={8} color="gray.700" className="font">
-              <strong>Cusdis</strong> is an open-source, lightweight (~5kb gzipped), privacy-first <strong>alternative to Disqus</strong>. It's super easy to use and integrate with your existed website. We don't track you and your user.
+              <strong>Counter-Offer</strong> is an open-source, lightweight (~5kb gzipped), privacy-first <strong>alternative to Disqus</strong>. It's super easy to use and integrate with your existed website. We don't track you and your user.
             </Text>
 
             <HStack mt={12} spacing={4}>
@@ -157,7 +144,7 @@ function IndexPage({ session, contributers }: Props) {
                   <Img shadow="base" mb={2} src="/images/intro-bot.png" />
                   <Heading size="sm">Webhook</Heading>
                   <VStack color="gray.500" fontSize="sm" alignItems="start">
-                    <Text>You can set a Webhook URL that will be triggered when your websites have new comment. Integrate Cusdis with your favorite tools such as Telegram.</Text>
+                    <Text>You can set a Webhook URL that will be triggered when your websites have new comment. Integrate Counter-Offer with your favorite tools such as Telegram.</Text>
                     <Link href="/doc#/advanced/webhook" isExternal textDecoration="underline">How to use Webhook</Link>
                   </VStack>
                 </VStack>
@@ -177,7 +164,7 @@ function IndexPage({ session, contributers }: Props) {
                 <VStack alignItems="start">
                   <Heading size="sm">Import from Disqus</Heading>
                   <Box color="gray.500" fontSize="sm">
-                    One-click to import your existed data in Disqus to Cusdis.
+                    One-click to import your existed data in Disqus to Counter-Offer.
               </Box>
                 </VStack>
 
@@ -185,10 +172,10 @@ function IndexPage({ session, contributers }: Props) {
                 <VStack alignItems="start">
                   <Heading size="sm">Open source</Heading>
                   <Box color="gray.500" fontSize="sm">
-                    Cusdis is an open-source project. Everyone can sure <strong>we don't track you and your user</strong>. Also, you can deploy your own Cusdis service with ease, to make sure you own your data.
+                    Counter-Offer is an open-source project. Everyone can sure <strong>we don't track you and your user</strong>. Also, you can deploy your own Counter-Offer service with ease, to make sure you own your data.
               </Box>
                   <Box pt={2}>
-                    <Link href="https://github.com/djyde/cusdis" isExternal>
+                    <Link href="https://github.com/djyde/Counter-Offer" isExternal>
                       <Icon w={8} h={8} as={GoMarkGithub} />
                     </Link>
                   </Box>
@@ -367,21 +354,6 @@ export const getServerSideProps: GetServerSideProps<Props> | Redirect = async (c
         permanent: false,
       }
     }
-  }
-
-  let contributers = [] as Contributer[]
-
-  try {
-    contributers = (await axios.get<Contributer[]>('https://opencollective.com/cusdis/members/all.json')).data
-  } catch (e) {
-
-  }
-
-  return {
-    props: {
-      session,
-      contributers: contributers.filter(_ => _.role !== 'HOST' && _.role !== 'ADMIN')
-    },
   }
 }
 

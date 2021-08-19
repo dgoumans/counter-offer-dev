@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { UserSession } from './service'
 import { getSession as nextAuthGetSession } from 'next-auth/client'
-import * as Sentry from '@sentry/node'
 import { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 import Boom from '@hapi/boom'
@@ -12,11 +11,7 @@ export const resolvedConfig = {
   useGithub: process.env.GITHUB_ID && process.env.GITHUB_SECRET,
   jwtSecret: process.env.JWT_SECRET,
   isHosted: process.env.IS_HOSTED === 'true',
-  host: process.env.HOST || 'https://cusdis.com',
-  umami: {
-    id: process.env.UMAMI_ID as EnvVariable,
-    src: process.env.UMAMI_SRC as EnvVariable,
-  },
+  host: process.env.HOST,
   google: {
     id: process.env.GOOGLE_ID as EnvVariable,
     secret: process.env.GOOGLE_SECRET as EnvVariable,
@@ -35,12 +30,6 @@ export const resolvedConfig = {
   },
   sendgrid: {
     apiKey: process.env.SENDGRID_API_KEY as EnvVariable,
-  },
-  sentry: {
-    dsn: process.env.SENTRY_DSN as EnvVariable,
-  },
-  minicapture: {
-    apiKey: process.env.MINICAPTURE_API_KEY as EnvVariable,
   },
 }
 
@@ -68,16 +57,6 @@ export const singletonSync = <T>(id: string, fn: () => T) => {
 
 export const prisma = singletonSync('prisma', () => {
   return new PrismaClient()
-})
-
-export const sentry = singletonSync('sentry', () => {
-  if (resolvedConfig.sentry.dsn) {
-    Sentry.init({
-      dsn: resolvedConfig.sentry.dsn,
-      tracesSampleRate: 1.0,
-    })
-    return Sentry
-  }
 })
 
 export function initMiddleware(middleware) {

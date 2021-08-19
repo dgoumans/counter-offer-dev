@@ -5,7 +5,6 @@ import { PageService } from './page.service'
 import dayjs from 'dayjs'
 import MarkdownIt from 'markdown-it'
 import { HookService } from './hook.service'
-import { statService } from './stat.service'
 import { EmailService } from './email.service'
 import { TokenService } from './token.service'
 import { makeConfirmReplyNotificationTemplate } from '../templates/confirm_reply_notification'
@@ -232,7 +231,6 @@ export class CommentService extends RequestScopeService {
       },
     })
 
-    statService.capture('comment_approve')
   }
 
   async delete(commentId: string) {
@@ -262,6 +260,5 @@ export class CommentService extends RequestScopeService {
         confirm_url: confirmLink,
       }),
     })
-    statService.capture('send_reply_confirm_email')
   }
 }

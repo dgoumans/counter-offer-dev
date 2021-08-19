@@ -1,7 +1,6 @@
 import { resolvedConfig } from '../utils.server'
 import * as nodemailer from 'nodemailer'
 import sgMail from '@sendgrid/mail'
-import { statService } from './stat.service'
 
 export class EmailService {
   isSMTPEnable() {
@@ -33,7 +32,6 @@ export class EmailService {
     } else if (this.isThirdpartyEnable()) {
       sgMail.setApiKey(resolvedConfig.sendgrid.apiKey)
       await sgMail.send(msg)
-      statService.capture('notification_email')
     }
   }
 }

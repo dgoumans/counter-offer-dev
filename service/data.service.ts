@@ -2,7 +2,6 @@ import { prisma } from '../utils.server'
 
 const parser = require('xml2json')
 import TurndownService from 'turndown'
-import { statService } from './stat.service'
 const turndownService = new TurndownService()
 
 export type DataSchema = {
@@ -131,7 +130,6 @@ export class DataService {
   async importFromDisqus(projectId: string, xmlData: string) {
 
     const result = await this.import(projectId, this.disqusAdapter(xmlData))
-    statService.capture('import_disqus')
 
     return result
   }

@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { AuthService } from '../../../../service/auth.service'
 import { CommentService } from '../../../../service/comment.service'
 import { ProjectService } from '../../../../service/project.service'
-import { statService } from '../../../../service/stat.service'
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,14 +30,7 @@ export default async function handler(
       return
     }
 
-    const queryCommentStat = statService.start('query_comments', 'Query Comments', {
-      tags: {
-        project_id: projectId,
-        from: 'dashboard'
-      }
-    })
-
-    const comments = await commentService.getComments(projectId, Number(timezoneOffsetInHour), {
+     const comments = await commentService.getComments(projectId, Number(timezoneOffsetInHour), {
       parentId: null,
       page: Number(page),
       onlyOwn: true,
@@ -48,8 +40,6 @@ export default async function handler(
         approved: true,
       },
     })
-
-    queryCommentStat.end()
 
     res.json({
       data: comments,

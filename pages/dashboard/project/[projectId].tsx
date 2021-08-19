@@ -241,7 +241,7 @@ function ProjectPage(props: {
                       <Heading size="md">Price</Heading>
                     </HStack>
                     <InputGroup>
-                      <Input defaultValue={props.project.id} type="text"></Input>
+                      <Input defaultValue={props.project.price} type="text"></Input>
                       <InputRightElement width='16'>
                         <Button size="sm">Save</Button>
                       </InputRightElement>
@@ -490,7 +490,7 @@ function Settings(props: {
   )
 }
 
-type ProjectServerSideProps = Pick<Project, 'ownerId' | 'id' | 'title' | 'token' | 'enableNotification' | 'webhook' | 'enableWebhook'>
+type ProjectServerSideProps = Pick<Project, 'ownerId' | 'id' | 'title' | 'price' | 'image' | 'description' | 'token' | 'enableNotification' | 'webhook' | 'enableWebhook'>
 
 export async function getServerSideProps(ctx) {
   const projectService = new ProjectService(ctx.req)
@@ -521,6 +521,9 @@ export async function getServerSideProps(ctx) {
       project: {
         id: project.id,
         title: project.title,
+        price: project.price,
+        image: project.image,
+        description: project.description,
         ownerId: project.ownerId,
         token: project.token,
         enableNotification: project.enableNotification,

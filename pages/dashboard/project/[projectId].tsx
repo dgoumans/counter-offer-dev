@@ -238,13 +238,35 @@ function ProjectPage(props: {
                 <TabPanel px={0} py={8}>
                   <VStack alignItems="start">
                     <HStack>
-                      <Heading size="md">Price</Heading>
+                    <Heading as="h1" size="md" mb={4} >Description</Heading>
                     </HStack>
                     <InputGroup>
                       <Input defaultValue={props.project.price} type="text"></Input>
-                      <InputRightElement width='16'>
+                      <InputRightElement width='16' p={4} rounded={'md'} fontSize="sm">
                         <Button size="sm">Save</Button>
-                      </InputRightElement>
+                      </InputRightElement >
+                    </InputGroup>
+                  </VStack>
+                  <VStack alignItems="start">
+                    <HStack>
+                    <Heading as="h1" size="md" mb={4} >Image</Heading>
+                    </HStack>
+                    <InputGroup>
+                      <Input defaultValue={props.project.price} type="text"></Input>
+                      <InputRightElement width='16' p={4} rounded={'md'} fontSize="sm">
+                        <Button size="sm">Save</Button>
+                      </InputRightElement >
+                    </InputGroup>
+                  </VStack>
+                  <VStack alignItems="start">
+                    <HStack>
+                    <Heading as="h1" size="md" mb={4} >Price</Heading>
+                    </HStack>
+                    <InputGroup>
+                      <Input defaultValue={props.project.price} type="text"></Input>
+                      <InputRightElement width='16' p={4} rounded={'md'} fontSize="sm">
+                        <Button size="sm">Save</Button>
+                      </InputRightElement >
                     </InputGroup>
                   </VStack>
                   <VStack alignItems="start">
@@ -252,13 +274,13 @@ function ProjectPage(props: {
                     {typeof window !== 'undefined' && <Box w="full" as="pre" whiteSpace="pre-wrap" bgColor="gray.200" p={4} rounded={'md'} fontSize="sm">
                       <code>
                         {`<div id="counter-offer_window"
-                          data-host="${location.origin}"
-                          data-app-id="${props.project.id}"
-                          data-page-id="{{ PAGE_ID }}"
-                          data-page-url="{{ PAGE_URL }}"
-                          data-page-title="{{ PAGE_TITLE }}"
-                        ></div>
-                        <script async defer src="${location.origin}/js/counter-offer.es.js"></script>
+  data-host="${location.origin}"
+  data-app-id="${props.project.id}"
+  data-page-id="{{ PAGE_ID }}"
+  data-page-url="{{ PAGE_URL }}"
+  data-page-title="{{ PAGE_TITLE }}"
+></div>
+<script async defer src="${location.origin}/js/counter-offer.es.js"></script>
                         `}
                       </code>
                     </Box>

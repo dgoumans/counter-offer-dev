@@ -212,7 +212,7 @@ function ProjectPage(props: {
             <Tabs size="md" >
               <TabList>
                 <Tab>Offers</Tab>
-                <Tab>Offer Configuration</Tab>
+                <Tab>Configuration</Tab>
                 <Tab>Settings</Tab>
               </TabList>
 
@@ -238,7 +238,7 @@ function ProjectPage(props: {
                 <TabPanel px={0} py={8}>
                   <VStack alignItems="start">
                     <HStack>
-                      <Heading size="md">Offer price:</Heading>
+                      <Heading size="md">Price</Heading>
                     </HStack>
                     <InputGroup>
                       <Input defaultValue={props.project.id} type="text"></Input>
@@ -247,12 +247,29 @@ function ProjectPage(props: {
                       </InputRightElement>
                     </InputGroup>
                   </VStack>
+                  <VStack alignItems="start">
+                    <Heading as="h1" size="md" mb={4} >Embed Code</Heading>
+                    {typeof window !== 'undefined' && <Box w="full" as="pre" whiteSpace="pre-wrap" bgColor="gray.200" p={4} rounded={'md'} fontSize="sm">
+                      <code>
+                        {`<div id="counter-offer_window"
+                          data-host="${location.origin}"
+                          data-app-id="${props.project.id}"
+                          data-page-id="{{ PAGE_ID }}"
+                          data-page-url="{{ PAGE_URL }}"
+                          data-page-title="{{ PAGE_TITLE }}"
+                        ></div>
+                        <script async defer src="${location.origin}/js/counter-offer.es.js"></script>
+                        `}
+                      </code>
+                    </Box>
+                    }
+                  </VStack>
                 </TabPanel>
 
                 <TabPanel px={0} py={8}>
                   <Settings project={props.project} />
                 </TabPanel>
-            
+
               </TabPanels>
             </Tabs>
 
@@ -405,24 +422,6 @@ function Settings(props: {
         spacing={8}
         alignItems="stretch"
       >
-        <VStack alignItems="start">
-          <Heading as="h1" size="md" mb={4} >Embed Code</Heading>
-          {typeof window !== 'undefined' && <Box w="full" as="pre" whiteSpace="pre-wrap" bgColor="gray.200" p={4} rounded={'md'} fontSize="sm">
-            <code>
-              {`<div id="counter-offer_window"
-  data-host="${location.origin}"
-  data-app-id="${props.project.id}"
-  data-page-id="{{ PAGE_ID }}"
-  data-page-url="{{ PAGE_URL }}"
-  data-page-title="{{ PAGE_TITLE }}"
-></div>
-<script async defer src="${location.origin}/js/counter-offer.es.js"></script>
-`}
-            </code>
-          </Box>
-          }
-        </VStack>
-
         <VStack alignItems="start">
           <HStack mt={4}>
             <Switch onChange={e => {

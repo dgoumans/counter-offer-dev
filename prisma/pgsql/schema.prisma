@@ -88,6 +88,10 @@ model Project {
 
   pages Page[]
 
+  price Int
+  image         String?
+  description   String
+
   token                 String?
   fetchLatestCommentsAt DateTime? @map(name: "fetch_latest_comments_at")
 

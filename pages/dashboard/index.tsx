@@ -113,7 +113,7 @@ function Dashboard(props: { session: UserSession }) {
 
   return (
     <>
-      <Head title="Cusdis" />
+      <Head title="Counter-Offer" />
       <Navbar session={props.session} />
       <Modal
         isOpen={createProjectModal.isOpen}
@@ -122,7 +122,7 @@ function Dashboard(props: { session: UserSession }) {
         <ModalOverlay></ModalOverlay>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <ModalContent>
-            <ModalHeader>New Website</ModalHeader>
+            <ModalHeader>New Offer</ModalHeader>
             <ModalCloseButton />
 
             <ModalBody>
@@ -142,7 +142,7 @@ function Dashboard(props: { session: UserSession }) {
       <Container maxW="5xl" pt={24}>
         <VStack alignItems="stretch" spacing={4}>
           <Heading>
-            Websites
+            Offers
           </Heading>
 
           <Box>
@@ -194,7 +194,7 @@ function Dashboard(props: { session: UserSession }) {
                   fontWeight="medium">
                   <VStack>
                     <AddIcon />
-                    <Text>Add Website</Text>
+                    <Text>Add Offer</Text>
                   </VStack>
                 </LinkOverlay>
               </LinkBox>

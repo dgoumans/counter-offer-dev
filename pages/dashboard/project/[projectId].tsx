@@ -211,7 +211,7 @@ function ProjectPage(props: {
           <Box>
             <Tabs size="md" >
               <TabList>
-                <Tab>Comments</Tab>
+                <Tab>Offers</Tab>
                 <Tab>Settings</Tab>
               </TabList>
 
@@ -220,7 +220,7 @@ function ProjectPage(props: {
                   {getCommentsQuery.isLoading && <Center p={8}><Spinner /></Center>}
                   <VStack alignItems="stretch" spacing={4}>
                     <VStack align="stretch" spacing={4} divider={<StackDivider borderColor="gray.200" />}>
-                      {commentCount === 0 && !getCommentsQuery.isLoading ? <Text py={12} textAlign="center" color="gray.500">No Comments</Text> : null}
+                      {commentCount === 0 && !getCommentsQuery.isLoading ? <Text py={12} textAlign="center" color="gray.500">No Offers</Text> : null}
                       {getCommentsQuery.data?.data.map(comment => <CommentComponent isRoot key={comment.id} refetch={getCommentsQuery.refetch} comment={comment} />)}
                     </VStack>
                     <HStack spacing={2} mt={8}>
@@ -253,7 +253,6 @@ function Settings(props: {
   project: ProjectServerSideProps
 }) {
 
-  const importFile = React.useRef(null)
   const toast = useToast()
 
   const enableNotificationMutation = useMutation(updateProjectSettings)
@@ -284,45 +283,6 @@ function Settings(props: {
   }
 
   const webhookInputRef = useRef<HTMLInputElement>(null)
-
-  const uploadMutation = useMutation(upload, {
-    onSuccess(data) {
-      toast({
-        title: 'Import success',
-        description: `imported ${data.commentCount} comments`,
-        status: 'success',
-        position: 'top'
-      })
-    },
-    onError() {
-      toast({
-        title: 'Something went wrong',
-        status: 'error',
-        position: 'top'
-      })
-    }
-  })
-
-  function onChangeFile(e) {
-    const file = e.target.files[0]
-    importFile.current = file
-  }
-
-  async function upload() {
-    const formData = new FormData()
-    formData.append('file', importFile.current)
-    const res = await apiClient.post<{
-      data: {
-        pageCount: number,
-        commentCount: number,
-      }
-    }>(`/project/${props.project.id}/data/import`, formData, {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    })
-    return res.data.data
-  }
 
   const onSaveWebhookUrl = async _ => {
     const value = webhookInputRef.current.value
@@ -404,7 +364,9 @@ function Settings(props: {
               Are you sure?
             </Text>
             <Box mt={2}>
-              <Link fontSize="sm" color="telegram.500" href='/doc#/faq?id=what-if-i-delete-a-project'>What if I delete a project?</Link>
+              What if I delete a project?
+              You won't see the Offer in dashboard
+              Offers widget using this id won't be displayed in your website
             </Box>
           </AlertDialogBody>
 
@@ -429,7 +391,7 @@ function Settings(props: {
           <Heading as="h1" size="md" mb={4} >Embed Code</Heading>
           {typeof window !== 'undefined' && <Box w="full" as="pre" whiteSpace="pre-wrap" bgColor="gray.200" p={4} rounded={'md'} fontSize="sm">
             <code>
-              {`<div id="cusdis_thread"
+              {`<div id="counter-offer_window"
   data-host="${location.origin}"
   data-app-id="${props.project.id}"
   data-page-id="{{ PAGE_ID }}"
@@ -495,19 +457,8 @@ function Settings(props: {
 
         <Box>
           <Heading as="h1" size="md" my={4}>Data</Heading>
-          <Heading as="h2" size="sm" my={4}>Import from Disqus</Heading>
-          <HStack>
-            <Input type="file" onChange={onChangeFile} />
-            <Button onClick={_ => {
-              if (importFile.current) {
-                uploadMutation.mutate()
-              }
-            }} isLoading={uploadMutation.isLoading}>Import</Button>
-
-          </HStack>
-
-          {/* <Heading as="h2" size="sm" my={4}>Export</Heading> */}
-
+          <Heading as="h2" size="sm" my={4}>Export - Todo</Heading>
+          <Button size="sm">Download</Button>
         </Box>
 
         <Box>

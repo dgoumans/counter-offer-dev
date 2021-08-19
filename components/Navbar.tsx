@@ -20,7 +20,7 @@ export function Navbar(props: { session: UserSession }) {
         <Flex>
           <Box>
             <Link fontWeight="bold" fontSize="xl" href="/dashboard">
-              Cusdis
+              Counter-Offer
             </Link>
           </Box>
           <Spacer />

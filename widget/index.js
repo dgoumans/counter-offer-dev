@@ -1,7 +1,7 @@
 window.CUSDIS = {}
 
 const makeIframeContent = (target) => {
-  const host = target.dataset.host || 'https://cusdis.com'
+  const host = target.dataset.host
   const iframeJsPath = target.dataset.iframe || `${host}/js/iframe.umd.js`
   const cssPath = `${host}/js/style.css`
   return `<!DOCTYPE html>
@@ -117,11 +117,11 @@ function initial() {
 
   if (window.cusdisElementId) {
     target = document.querySelector(`#${window.cusdisElementId}`)
-  } else if (document.querySelector('#cusdis_thread')) {
-    target = document.querySelector('#cusdis_thread')
+  } else if (document.querySelector('#counter-offer_window')) {
+    target = document.querySelector('#counter-offer_window')
   } else if (document.querySelector('#cusdis')) {
     console.warn(
-      'id `cusdis` is deprecated. Please use `cusdis_thread` instead',
+      'id `cusdis` is deprecated. Please use `counter-offer_window` instead',
     )
     target = document.querySelector('#cusdis')
   }

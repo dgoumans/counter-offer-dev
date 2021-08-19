@@ -6,7 +6,7 @@ export async function initial() {
   const currentScript = document.currentScript || document.querySelector('#for-testing')
 
   const { appId, host } = currentScript.dataset
-  const resolvedHost = host || 'https://cusdis.com'
+  const resolvedHost = host
 
   const nodes = document.querySelectorAll('*[data-cusdis-count-page-id]')
 

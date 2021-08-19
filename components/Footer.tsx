@@ -15,19 +15,6 @@ export function Footer(props: {
                 <ListItem>
                   <Text color="gray.900" fontWeight="medium">Contact</Text>
                 </ListItem>
-                <ListItem>
-                  <Link isExternal href="#">Twitter</Link>
-                </ListItem>
-                <ListItem>
-                  <Link isExternal href="#">Blog</Link>
-                </ListItem>
-                <ListItem>
-                  <Link isExternal href="#">GitHub</Link>
-                </ListItem>
-                <ListItem>
-                  <Text>hi@cusdis.com</Text>
-                </ListItem>
-
               </List>
             </Box>
 
@@ -37,10 +24,7 @@ export function Footer(props: {
                   <Text fontWeight="medium" color="gray.900" >Resources</Text>
                 </ListItem>
                 <ListItem>
-                  <Link isExternal href="#">Documentation</Link>
-                </ListItem>
-                <ListItem>
-                  <Link isExternal href="#">Sponsor</Link>
+                  <Link isExternal href="/#">Documentation</Link>
                 </ListItem>
                 <ListItem>
                   <Link isExternal href="/privacy-policy">Privacy Policy</Link>

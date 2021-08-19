@@ -40,7 +40,7 @@ export default apiHandler()
         } as CommentWrapper,
       })
       return
-    })
+    }
 
     const comments = await commentService.getComments(
       query.appId,

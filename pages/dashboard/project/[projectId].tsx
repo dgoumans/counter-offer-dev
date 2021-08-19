@@ -398,7 +398,7 @@ function Settings(props: {
   data-page-url="{{ PAGE_URL }}"
   data-page-title="{{ PAGE_TITLE }}"
 ></div>
-<script async defer src="${location.origin}/js/cusdis.es.js"></script>
+<script async defer src="${location.origin}/js/counter-offer.es.js"></script>
 `}
             </code>
           </Box>
@@ -456,8 +456,7 @@ function Settings(props: {
         </VStack>
 
         <Box>
-          <Heading as="h1" size="md" my={4}>Data</Heading>
-          <Heading as="h2" size="sm" my={4}>Export - Todo</Heading>
+          <Heading as="h1" size="md" my={4}>Data Export - Todo</Heading>
           <Button size="sm">Download</Button>
         </Box>
 

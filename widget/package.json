@@ -1,8 +1,8 @@
 {
-  "name": "cusdis",
-  "version": "1.1.2",
-  "main": "dist/cusdis.umd.js",
-  "module": "dist/cusdis.es.js",
+  "name": "counter-offer",
+  "version": "1.0.0",
+  "main": "dist/counter-offer.umd.js",
+  "module": "dist/counter-offer.es.js",
   "files": [
     "dist"
   ]

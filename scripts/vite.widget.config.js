@@ -5,7 +5,7 @@ module.exports = {
   build: {
     lib: {
       entry: path.resolve(__dirname, '..', 'widget', 'index.js'),
-      name: 'cusdis',
+      name: 'counter-offer',
     },
     outDir: path.resolve(__dirname, '..', 'public', 'js'),
   },

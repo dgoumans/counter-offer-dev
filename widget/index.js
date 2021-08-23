@@ -99,7 +99,7 @@ function render(target) {
 }
 
 // deprecated
-window.renderCusdis = render
+window.renderCounter_Offer = render
 
 window.COUNTER_OFFER.renderTo = render
 
@@ -110,8 +110,8 @@ window.COUNTER_OFFER.setTheme = function (theme) {
 function initial() {
   let target
 
-  if (window.counter-offerElementId) {
-    target = document.querySelector(`#${window.counter-offerElementId}`)
+  if (window.counter_offerElementId) {
+    target = document.querySelector(`#${window.counter_offerElementId}`)
   } else if (document.querySelector('#counter-offer_window')) {
     target = document.querySelector('#counter-offer_window')
   }

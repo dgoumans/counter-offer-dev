@@ -12,7 +12,7 @@ import { apiClient } from "../../utils.client"
 import { prisma } from "../../utils.server"
 import { ErrorCode } from "../error"
 
-const approveComment = async ({ token }) => {
+const approveOffer = async ({ token }) => {
   const res = await apiClient.post(`/open/approve?token=${token}`)
   return res.data
 }
@@ -25,7 +25,7 @@ const appendReply = async ({  replyContent, token }) => {
 }
 
 function ApprovePage(props: {
-  comment: Comment & {
+  offer: Comment & {
     page: Page & {
       project: Project
     }
@@ -54,7 +54,7 @@ function ApprovePage(props: {
       })
     }
   })
-  const approveCommentMutation = useMutation(approveComment, {
+  const approveOfferMutation = useMutation(approveOffer, {
     onSuccess() {
       toast({
         title: 'Success',
@@ -74,49 +74,29 @@ function ApprovePage(props: {
 
   return (
     <>
-      <Head title="New comment - Cusdis" />
+      <Head title="Offer status changed!" />
       <Container mt={12} my={12}>
         <Heading mb={12}>
-          Cusdis
+          Counter-Offer
         </Heading>
         <VStack alignItems="start" spacing={4}>
-          <Text>New comment on project <strong>{props.comment.page.project.title}</strong>, page <Link fontWeight="bold" isExternal href={props.comment.page.url}>{props.comment.page.title || props.comment.page.slug}</Link></Text>
-          <Text><strong>{props.comment.by_nickname}</strong> ({props.comment.by_email || 'Email not provided'})</Text>
-          <Text whiteSpace="pre-wrap" as='pre' bgColor="gray.100" p={2} w="full">{props.comment.content}</Text>
+          <Text>New offer on project <strong>{props.offer.page.project.title}</strong>, page <Link fontWeight="bold" isExternal href={props.offer.page.url}>{props.offer.page.title || props.offer.page.slug}</Link></Text>
+          <Text><strong>{props.offer.by_nickname}</strong> ({props.offer.by_email || 'Email not provided'})</Text>
+          <Text whiteSpace="pre-wrap" as='pre' bgColor="gray.100" p={2} w="full">{props.offer.content}</Text>
 
           <Box>
             {
-              props.comment.approved ? <Button disabled>Approved</Button> : <Button onClick={_ => {
-                approveCommentMutation.mutate({
+              props.offer.approved ? <Button disabled>Approved</Button> : <Button onClick={_ => {
+                approveOfferMutation.mutate({
                   token: router.query.token as string
                 })
-              }} isLoading={approveCommentMutation.isLoading} colorScheme="telegram">
+              }} isLoading={approveOfferMutation.isLoading} colorScheme="telegram">
                 Approve
           </Button>
             }
           </Box>
 
         </VStack>
-
-        <Divider my={8}></Divider>
-
-        <VStack mt={4} alignItems="start">
-          <FormControl>
-            <FormLabel>Append reply as moderator</FormLabel>
-
-            <Textarea value={replyContent} onChange={e => setReplyContent(e.target.value)}></Textarea>
-          </FormControl>
-
-          <Text fontSize="sm" color="gray.500">* Appending reply to a comment will automatically approve the comment</Text>
-        </VStack>
-
-        <Button onClick={_ => {
-          appendReplyMutation.mutate({
-            token: router.query.token as string,
-            replyContent
-          })
-        }} isLoading={appendReplyMutation.isLoading} mt={4}>Append</Button>
-
       </Container>
     </>
   )
@@ -134,7 +114,7 @@ function redirectError(code: ErrorCode) {
 export async function getServerSideProps(ctx) {
 
   const tokenService = new TokenService()
-  const commentService = new CommentService(ctx.req)
+  const offerService = new CommentService(ctx.req)
 
   const { token } = ctx.query
 
@@ -142,18 +122,18 @@ export async function getServerSideProps(ctx) {
     return redirectError(ErrorCode.INVALID_TOKEN)
   }
 
-  let commentId
+  let offerId
 
   try {
-    commentId = tokenService.validate(token, SecretKey.ApproveComment).commentId
+    offerId = tokenService.validate(token, SecretKey.ApproveComment).offerId
   } catch (e) {
     return redirectError(ErrorCode.INVALID_TOKEN)
   }
 
 
-  const comment = await prisma.comment.findUnique({
+  const offer = await prisma.comment.findUnique({
     where: {
-      id: commentId
+      id: offerId
     },
     select: {
       by_nickname: true,
@@ -177,7 +157,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      comment
+      offer
     }
   }
 }

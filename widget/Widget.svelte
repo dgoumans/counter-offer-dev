@@ -32,7 +32,7 @@
     function onMessage(e) {
       try {
         const msg = JSON.parse(e.data)
-        if (msg.from === 'cusdis') {
+        if (msg.from === 'counter_offer') {
           switch (msg.event) {
             case 'setTheme':
               {

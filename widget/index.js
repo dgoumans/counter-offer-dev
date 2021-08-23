@@ -1,4 +1,4 @@
-window.CUSDIS = {}
+window.COUNTER_OFFER = {}
 
 const makeIframeContent = (target) => {
   const host = target.dataset.host
@@ -10,15 +10,10 @@ const makeIframeContent = (target) => {
     <link rel="stylesheet" href="${cssPath}">
     <base target="_parent" />
     <link>
-    <script>
-      window.CUSDIS_LOCALE = ${JSON.stringify(window.CUSDIS_LOCALE)}
-      window.__DATA__ = ${JSON.stringify(target.dataset)}
-    </script>
   </head>
   <body>
     <div id="root"></div>
     <script src="${iframeJsPath}" type="module">
-      
     </script>
   </body>
 </html>`
@@ -42,7 +37,7 @@ function postMessage(event, data) {
   if (singleTonIframe) {
     singleTonIframe.contentWindow.postMessage(
       JSON.stringify({
-        from: 'cusdis',
+        from: 'counter-offer',
         event,
         data,
       }),
@@ -56,7 +51,7 @@ function listenEvent(iframe, target) {
   const onMessage = (e) => {
     try {
       const msg = JSON.parse(e.data)
-      if (msg.from === 'cusdis') {
+      if (msg.from === 'counter-offer') {
         switch (msg.event) {
           case 'onload':
             {
@@ -106,27 +101,22 @@ function render(target) {
 // deprecated
 window.renderCusdis = render
 
-window.CUSDIS.renderTo = render
+window.COUNTER_OFFER.renderTo = render
 
-window.CUSDIS.setTheme = function (theme) {
+window.COUNTER_OFFER.setTheme = function (theme) {
   postMessage('setTheme', theme)
 }
 
 function initial() {
   let target
 
-  if (window.cusdisElementId) {
-    target = document.querySelector(`#${window.cusdisElementId}`)
+  if (window.counter-offerElementId) {
+    target = document.querySelector(`#${window.counter-offerElementId}`)
   } else if (document.querySelector('#counter-offer_window')) {
     target = document.querySelector('#counter-offer_window')
-  } else if (document.querySelector('#cusdis')) {
-    console.warn(
-      'id `cusdis` is deprecated. Please use `counter-offer_window` instead',
-    )
-    target = document.querySelector('#cusdis')
   }
 
-  if (window.CUSDIS_PREVENT_INITIAL_RENDER === true) {
+  if (window.COUNTER-OFFER_PREVENT_INITIAL_RENDER === true) {
   } else {
     if (target) {
       render(target)
@@ -135,6 +125,6 @@ function initial() {
 }
 
 // initialize
-window.CUSDIS.initial = initial
+window.COUNTER_OFFER.initial = initial
 
 initial()

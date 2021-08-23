@@ -4,8 +4,7 @@
   export let parentId
 
   // form data
-  let content = ''
-  let nickname = ''
+  let offer = ''
   let email = ''
 
   let loading = false
@@ -17,40 +16,37 @@
   const { appId, pageId, pageUrl, pageTitle } = getContext('attrs')
   const refresh = getContext('refresh')
 
-  async function addComment() {
-    if (!content) {
-      alert(t('content_is_required'))
+  async function addOffer() {
+    if (!offer) {
+      alert(t('offer_is_required'))
       return
     }
 
-    if (!nickname) {
-      alert(t('nickname_is_required'))
+    if (!email) {
+      alert(t('email_is_required'))
       return
     }
 
     try {
       loading = true
-      const res = await api.post('/api/open/comments', {
+      const res = await api.post('/api/open/offers', {
         appId,
         pageId,
-        content,
-        nickname,
+        offer,
         email,
-        parentId,
         pageUrl,
         pageTitle,
       })
       await refresh()
       teardown()
-      setMessage(t('comment_has_been_sent'))
+      setMessage(t('offer_has_been_sent'))
     } finally {
       loading = false
     }
   }
 
   function teardown() {
-    content = ''
-    nickname = ''
+    offer = ''
     email = ''
     onSuccess && onSuccess()
   }
@@ -60,12 +56,12 @@
 <div class="grid grid-cols-1 gap-4">
   <div class="grid grid-cols-2 gap-4">
     <div>
-      <label class="mb-2 block dark:text-gray-200" for="nickname">{t('nickname')}</label>
+      <label class="mb-2 block dark:text-gray-200" for="offer">{t('offer')}</label>
       <input
-        name="nickname"
+        name="offer"
         class="w-full p-2 border border-gray-200 bg-transparent dark:text-gray-100 dark:outline-none"
         type="text"
-        bind:value={nickname}
+        bind:value={offer}
       />
     </div>
     <div>
@@ -78,22 +74,13 @@
       />
     </div>
   </div>
-
-  <div>
-    <label class="mb-2 block dark:text-gray-200" for="reply_content">{t('reply_placeholder')}</label>
-    <textarea
-      name="reply_content"
-      class="w-full p-2 border border-gray-200 h-24 bg-transparent dark:text-gray-100 dark:outline-none"
-      bind:value={content}
-    />
-  </div>
-
+  
   <div>
     <button
       
       class="text-sm bg-gray-200 p-2 px-4 font-bold"
       class:cusdis-disabled={loading}
-      on:click={addComment}>{loading ? t('sending') : t('post_comment')}</button
+      on:click={addComment}>{loading ? t('sending') : t('post_offer')}</button
     >
   </div>
 </div>

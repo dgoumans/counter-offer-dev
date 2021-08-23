@@ -1,14 +1,14 @@
 import en from './lang/en'
 
 export function t(key) {
-  const LOCALE_KEY = 'CUSDIS_LOCALE'
+  const LOCALE_KEY = 'COUNTER_OFFER_LOCALE'
 
   const locale = window[LOCALE_KEY] || en
 
   const content = locale[key] || en[key]
   if (!locale[key]) {
     console.warn(
-      '[cusdis]',
+      '[counter_offer]',
       'translation of language key',
       `'${key}'`,
       'is missing.',

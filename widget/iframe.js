@@ -1,6 +1,6 @@
 import Widget from './Widget.svelte'
 
-window.CUSDIS = {}
+window.COUNTER_OFFER = {}
 
 const parent = window.parent
 const target = document.querySelector('#root')
@@ -16,7 +16,7 @@ const widget = new Widget({
 function postMessage(event, data = {}) {
   parent.postMessage(
     JSON.stringify({
-      from: 'cusdis',
+      from: 'counter_offer',
       event,
       data,
     }),

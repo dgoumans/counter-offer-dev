@@ -13,17 +13,6 @@ const widget = new Widget({
   },
 })
 
-function postMessage(event, data = {}) {
-  parent.postMessage(
-    JSON.stringify({
-      from: 'counter_offer',
-      event,
-      data,
-    }),
-  )
-}
-
-postMessage('onload')
 requestResize()
 
 function requestResize() {

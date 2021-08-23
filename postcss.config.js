@@ -4,12 +4,6 @@ module.exports = {
       purge: [
         "widget/**/*.svelte"
       ],
-      darkMode: 'class',
-      variants: {
-        extend: {
-          outline: ['dark']
-        }
-      }
     },
     autoprefixer: {},
   },

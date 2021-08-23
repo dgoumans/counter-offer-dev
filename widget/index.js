@@ -116,7 +116,7 @@ function initial() {
     target = document.querySelector('#counter-offer_window')
   }
 
-  if (window.COUNTER-OFFER_PREVENT_INITIAL_RENDER === true) {
+  if (window.COUNTER_OFFER_PREVENT_INITIAL_RENDER === true) {
   } else {
     if (target) {
       render(target)

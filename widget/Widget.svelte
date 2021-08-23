@@ -1,5 +1,4 @@
 <script>
-  import './theme.css'
   import { onMount, setContext } from 'svelte'
   import axios from 'redaxios'
   import Comment from './components/Comment.svelte'
@@ -17,37 +16,9 @@
 
   let error
 
-  let theme = attrs.theme || 'light'
 
   const api = axios.create({
     baseURL: attrs.host,
-  })
-
-  function setMessage(msg) {
-    message = msg
-  }
-
-  onMount(() => {
-
-    function onMessage(e) {
-      try {
-        const msg = JSON.parse(e.data)
-        if (msg.from === 'counter_offer') {
-          switch (msg.event) {
-            case 'setTheme':
-              {
-                theme = msg.data
-              }
-              break
-          }
-        }
-      } catch (e) {}
-    }
-    window.addEventListener('message', onMessage)
-
-    return () => {
-      window.removeEventListener('message', onMessage)
-    }
   })
 
   setContext('api', api)
@@ -86,14 +57,6 @@
   })
 
 </script>
-
-{#if !error}
-  <div class:dark={theme === 'dark'}>
-    {#if message}
-      <div class="p-2 mb-4 bg-blue-500 text-white">
-        {message}
-      </div>
-    {/if}
 
     <Reply />
 

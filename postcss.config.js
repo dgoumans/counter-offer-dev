@@ -2,8 +2,7 @@ module.exports = {
   plugins: {
     tailwindcss: {
       purge: [
-        "widget/**/*.svelte",
-        "widget/theme.css"
+        "widget/**/*.svelte"
       ],
       darkMode: 'class',
       variants: {

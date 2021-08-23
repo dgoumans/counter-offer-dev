@@ -90,5 +90,4 @@
     <div class="text-center text-sm text-gray-900 dark:text-gray-100">
       <a class="underline " href="https://counter-offer.com">{t('powered_by')}</a>
     </div>
-  </div>
 {/if}
